@@ -9,11 +9,11 @@ const Home = props => (
         <p>Welcome home!</p>
         <button onClick={() => props.changePage()}>Go mail list</button>
     </div>
-)
+);
 
 const mapDispatchToProps = dispatch => bindActionCreators({
     changePage: () => push('/mailbox')
-}, dispatch)
+}, dispatch);
 
 export default connect(
     null,
