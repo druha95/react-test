@@ -7,7 +7,10 @@ import store, { history } from './store';
 import App from './containers/app';
 
 // import 'sanitize.css/sanitize.css';
+import './gapi';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap-grid.css'
+import 'bootstrap/dist/css/bootstrap.css'
 
 const target = document.querySelector('#root');
 
@@ -15,7 +18,7 @@ render(
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <div>
-                <App />
+                <App store={store} />
             </div>
         </ConnectedRouter>
     </Provider>,

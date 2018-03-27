@@ -1,53 +1,31 @@
 import React from 'react'
+import {connect} from "react-redux";
+import {bindActionCreators} from "redux";
+import {push} from "react-router-redux";
 
-const API_KEY = 'UlU6LcuxsDxcCG6Bt4rho91q';
-const clientId = '408766199131-ioragtbvth5pk9f27j1q3g41mpefujr7.apps.googleusercontent.com';
-
-export class Mailbox extends React.Component {
-
-    scopes = ['https://mail.google.com/', 'https://www.googleapis.com/auth/gmail.readonly'];
-
-    loadYoutubeApi() {
-        const script = document.createElement("script");
-        script.src = "https://apis.google.com/js/client.js";
-
-        script.onload = () => {
-            window.gapi.load('client', () => {
-                debugger;
-                window.gapi.client.setApiKey(API_KEY);
-                window.gapi.auth.authorize({
-                    client_id: clientId,
-                    scope: this.scopes,
-                    immediate: false
-                }, this.handleAuthResult.bind(this));
-                // window.gapi.client.load('youtube', 'v3', () => {
-                //     this.setState({ gapiReady: true });
-                // });
-            });
-        };
-
-        document.body.appendChild(script);
-    }
-
-    handleAuthResult(result) {
-        debugger;
-        window.gapi.client.load('gmail', 'v2', this.displayInbox);
-    }
-
-    displayInbox(result) {
-        debugger;
-    }
-
-    componentDidMount() {
-        this.loadYoutubeApi();
-    }
-
+class Mailbox extends React.Component {
     render() {
+        return (
+            <div>
+                {/*<h1>{this.props.mailList[0].snippet}</h1>*/}
 
-        // if (this.state.gapiReady) {
-            return (
-                <h1>GAPI is loaded and ready to use.</h1>
-            );
-        // }
+                <button onClick={() => {this.props.changePage()}}> Go Home </button>
+            </div>
+        );
+    }
+}
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+    changePage: () => push('/')
+}, dispatch);
+
+const mapStateToProps = state => {
+    return {
+        mailList: state.mailListReducer
     }
 };
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Mailbox)

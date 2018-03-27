@@ -1,21 +1,30 @@
 import React from 'react';
 import Home from '../home';
+import Mailbox from '../mailbox';
 import './index.css';
 import { Link, Route } from 'react-router-dom';
-import { Mailbox } from '../mailbox';
+import {getProfile} from "../actions/userProfile";
+import {getMailList} from "../actions/mailList";
 
-const App = () => (
+const App = ({store}) => (
     <div>
-        <header>
-            <Link to="/">Home</Link>
-            <Link to="/mailbox">About</Link>
-        </header>
+        <nav className={'navbar navbar-expand-lg navbar-light bg-light'}>
+            <a className={"navbar-brand"} href="/">Navbar</a>
 
-        <main>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/mailbox" component={Mailbox} />
-            {/*<Route exact path="/mailbox/:id" component={About} />*/}
-        </main>
+            <div className={"collapse navbar-collapse"}>
+                <ul className={"navbar-nav mr-auto"}>
+                    <li className={"nav-item active"}>
+                        <Link to="/">Home</Link>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div className={'container'}>
+            <main>
+                <Route exact path="/" component={Home} onEnter={store.dispatch(getProfile(store))} />
+                <Route exact path="/mailbox" component={Mailbox} onEnter={store.dispatch(getMailList(store))}/>
+            </main>
+        </div>
     </div>
 );
 
