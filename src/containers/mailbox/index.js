@@ -1,15 +1,18 @@
 import React from 'react'
-import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
-import {push} from "react-router-redux";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { push } from 'react-router-redux';
 
 class Mailbox extends React.Component {
     render() {
         return (
             <div>
-                {/*<h1>{this.props.mailList[0].snippet}</h1>*/}
-
-                <button onClick={() => {this.props.changePage()}}> Go Home </button>
+                <button type="button" className={"btn btn-primary"} onClick={() => {this.props.changePage()}}> Go Home </button>
+                <ul className={"list-group"}>
+                    {this.props.mailList.map((mail) =>
+                        <li class="list-group-item">{mail.snippet}</li>
+                    )}
+                </ul>
             </div>
         );
     }

@@ -1,6 +1,5 @@
 import 'redux';
 import 'react-redux';
-import {userProfileReducer} from "../reducers/userProfileReducer";
 import * as _ from 'lodash'
 export const GET_PROFILE = 'GET_PROFILE';
 
@@ -13,12 +12,7 @@ const getProfileSuccess = (profile) => {
     }
 };
 
-export const getProfile = (store) => {
-
-    debugger;
-    if(!_.isEmpty(store.getState().userProfileReducer)) return dispatch =>
-        dispatch(getProfileSuccess(store.getState().userProfileReducer));
-
+const getProfile = () => {
     return dispatch => window.gapi.load('auth2', () => {
         let auth2;
         auth2 = window.gapi.auth2.init({
@@ -31,4 +25,11 @@ export const getProfile = (store) => {
             dispatch(getProfileSuccess(auth2.currentUser.get().getBasicProfile()));
         });
     })
-}
+};
+
+export const loadProfile = (store) => {
+    if(_.isEmpty(store.getState().userProfileReducer)) {
+        store.dispatch(getProfile())
+    }
+};
+

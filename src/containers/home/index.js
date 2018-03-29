@@ -1,16 +1,15 @@
-import React from 'react'
-import { push } from 'react-router-redux'
-import { bindActionCreators } from 'redux'
-import { connect } from 'react-redux'
-
-const clientId = '408766199131-ioragtbvth5pk9f27j1q3g41mpefujr7.apps.googleusercontent.com';
+import React from 'react';
+import { push } from 'react-router-redux';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import './index.css';
 
 
 class Home extends React.Component {
     render() {
-        return <div>
-            <p>Welcome {this.props.profile.ig}!</p>
-            <button onClick={() => this.props.changePage()}>Go mail list</button>
+        return <div className={"home-page"}>
+            <h1>Welcome {this.props.profile.ig}!</h1>
+            <button type="button" className={"btn btn-primary"} onClick={() => this.props.changePage()}>Go mail list</button>
         </div>
     }
 }
@@ -23,7 +22,7 @@ const mapStateToProps = state => {
     return {
         profile: state.userProfileReducer
     }
-}
+};
 
 export default connect(
     mapStateToProps,

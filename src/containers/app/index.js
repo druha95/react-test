@@ -3,8 +3,8 @@ import Home from '../home';
 import Mailbox from '../mailbox';
 import './index.css';
 import { Link, Route } from 'react-router-dom';
-import {getProfile} from "../actions/userProfile";
-import {getMailList} from "../actions/mailList";
+import { loadProfile } from '../actions/userProfile';
+import { loadMailList } from '../actions/mailList';
 
 const App = ({store}) => (
     <div>
@@ -21,8 +21,8 @@ const App = ({store}) => (
         </nav>
         <div className={'container'}>
             <main>
-                <Route exact path="/" component={Home} onEnter={store.dispatch(getProfile(store))} />
-                <Route exact path="/mailbox" component={Mailbox} onEnter={store.dispatch(getMailList(store))}/>
+                <Route exact path="/" component={Home} onEnter={loadProfile(store)} />
+                <Route exact path="/mailbox" component={Mailbox} onEnter={loadMailList(store)}/>
             </main>
         </div>
     </div>
